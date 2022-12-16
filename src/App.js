@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import axios from "axios";
 import './styles.js'
 import { Container, Imagem, H1, Label, Input, Button, Cliente } from "./styles";
 import Burger from "./assets/burger.svg"
@@ -12,11 +13,16 @@ function App() {
   const InputCliente = useRef();
  
 
-    function addNewRequest(){
-       setPedidos([ ... pedidos, {
-        id: Math.random(), pedido:InputPedido.current.value, 
-        cliente:InputCliente.current.value}
-      ])
+    async function addNewRequest(){
+
+      // CONECTANDO COM O BACK VIA AXIOS
+      const { data: newRequest } = await axios.post("http://localhost:3001/pedidos",{
+        pedido:InputPedido.current.value, 
+        cliente:InputCliente.current.value })
+
+        setPedidos([
+         ... pedidos, newRequest
+          ])
     }
 
     function deletePedido(cliId){
