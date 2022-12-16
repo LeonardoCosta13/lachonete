@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import './styles.js'
 import { Container, Imagem, H1, Label, Input, Button, Cliente } from "./styles";
@@ -23,12 +23,27 @@ function App() {
         setPedidos([
          ... pedidos, newRequest
           ])
+
+      
     }
 
-    function deletePedido(cliId){
-      const newPedidos =  pedidos.filter( cli => cli.id !== cliId );
+    async function deletePedido(cliId){
+      await axios.delete(`http://localhost:3001/pedidos/${cliId}`)
+
+      const newPedidos = pedidos.filter( cli => cli.id !== cliId );
       setPedidos(newPedidos)
     }
+
+    useEffect(() => {
+      async function fetchRequest(){
+      const {data: newPedidos} = await axios.get("http://localhost:3001/pedidos")
+
+      setPedidos(newPedidos)
+      }
+      
+      fetchRequest()
+    }, []);
+
   
 
   return(
