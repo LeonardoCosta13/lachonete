@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 
 
+
 export const Container = styled.div`
   
   background: #0A0A10;
-  height: 120vh;
+  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +42,6 @@ export const Label = styled.p`
   letter-spacing: -0.408px;
   color: #EEEEEE;
   justify-content: flex-start;
-  margin-left: px;
   margin-bottom: 2px;
 
 `
